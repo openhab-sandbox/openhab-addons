@@ -3,16 +3,19 @@
 Binding for the Bosch Smart Home.
 
 - [Bosch Smart Home Binding](#bosch-smart-home-binding)
-  - [Changelog](#changelog)
   - [Supported Things](#supported-things)
-    - [In-Wall switches & Smart Plugs](#in-wall-switches--smart-plugs)
-    - [TwinGuard smoke detector](#twinguard-smoke-detector)
-    - [Door/Window contact](#doorwindow-contact)
+    - [In-Wall Switch](#in-wall-switch)
+    - [Compact Smart Plug](#compact-smart-plug)
+    - [Twinguard Smoke Detector](#twinguard-smoke-detector)
+    - [Door/Window Contact](#door-window-contact)
     - [Motion Detector](#motion-detector)
     - [Shutter Control](#shutter-control)
     - [Thermostat](#thermostat)
     - [Climate Control](#climate-control)
     - [Wall Thermostat](#wall-thermostat)
+    - [Security Camera 360](#security-camera-360)
+    - [Security Camera Eyes](#security-camera-eyes)
+    - [Intrusion Detection System](#intrusion-detection-system)
   - [Limitations](#limitations)
   - [Discovery](#discovery)
   - [Bridge Configuration](#bridge-configuration)
@@ -22,19 +25,31 @@ Binding for the Bosch Smart Home.
 
 ## Supported Things
 
-### In-Wall switches & Smart Plugs
+### In-Wall Switch
 
 A simple light control.
 
 **Thing Type ID**: `in-wall-switch`
 
-| Channel Type ID    | Item Type     | Writable | Description                                  |
-| ------------------ | ------------- | :------: | -------------------------------------------- |
-| power-switch       | Switch        | &#9745;  | Current state of the switch.                 |
-| power-consumption  | Number:Power  | &#9744;  | Current power consumption (W) of the device. |
-| energy-consumption | Number:Energy | &#9744;  | Energy consumption of the device.            |
+| Channel Type ID    | Item Type     | Writable | Description                                      |
+| ------------------ | ------------- | :------: | ------------------------------------------------ |
+| power-switch       | Switch        | &#9745;  | Current state of the switch.                     |
+| power-consumption  | Number:Power  | &#9744;  | Current power consumption (W) of the device.     |
+| energy-consumption | Number:Energy | &#9744;  | Cumulated energy consumption (Wh) of the device. |
 
-### TwinGuard smoke detector
+### Compact Smart Plug
+
+A compact smart plug with energy monitoring capabilities.
+
+**Thing Type ID**: `smart-plug-compact`
+
+| Channel Type ID    | Item Type     | Writable | Description                                      |
+| ------------------ | ------------- | :------: | ------------------------------------------------ |
+| power-switch       | Switch        | &#9745;  | Current state of the switch.                     |
+| power-consumption  | Number:Power  | &#9744;  | Current power consumption (W) of the device.     |
+| energy-consumption | Number:Energy | &#9744;  | Cumulated energy consumption (Wh) of the device. |
+
+### Twinguard smoke detector
 
 The Twinguard smoke detector warns you in case of fire and constantly monitors the air.
 
@@ -51,7 +66,7 @@ The Twinguard smoke detector warns you in case of fire and constantly monitors t
 | air-description    | String               | &#9744;  | Overall description of the air quality.                                                           |
 | combined-rating    | String               | &#9744;  | Combined rating of the air quality.                                                               |
 
-### Door/Window contact
+### Door/Window Contact
 
 Detects open windows and doors.
 
@@ -114,6 +129,44 @@ Display of the current room temperature as well as the relative humidity in the 
 | --------------- | -------------------- | :------: | ------------------------------------- |
 | temperature     | Number:Temperature   | &#9744;  | Current measured temperature.         |
 | humidity        | Number:Dimensionless | &#9744;  | Current measured humidity (0 to 100). |
+
+### Security Camera 360
+
+Indoor security camera with 360° view and motion detection.
+
+**Thing Type ID**: `security-camera-360`
+
+| Channel Type ID       | Item Type            | Writable | Description                                                        |
+| --------------------- | -------------------- | :------: | ------------------------------------------------------------------ |
+| privacy-mode          | Switch               | &#9745;  | If privacy mode is enabled, the camera is disabled and vice versa. |
+| camera-notification   | Switch               | &#9745;  | Enables or disables notifications for the camera.                  |
+
+### Security Camera Eyes
+
+Outdoor security camera with motion detection and light.
+
+**Thing Type ID**: `security-camera-eyes`
+
+| Channel Type ID       | Item Type            | Writable | Description                                                        |
+| --------------------- | -------------------- | :------: | ------------------------------------------------------------------ |
+| privacy-mode          | Switch               | &#9745;  | If privacy mode is enabled, the camera is disabled and vice versa. |
+| camera-notification   | Switch               | &#9745;  | Enables or disables notifications for the camera.                  |
+
+### Intrusion Detection System
+
+Allows to retrieve notifications in case of intrusions. The system can be armed and disarmed and alarms can be muted.
+
+**Thing Type ID**: `intrusion-detection-system`
+
+| Channel Type ID              | Item Type            | Writable | Description                                                    |
+| ---------------------------- | -------------------- | :------: | -------------------------------------------------------------- |
+| system-availability          | Switch               | &#9744;  | Indicates whether the intrusion detection system is available. |
+| arming-state                 | String               | &#9744;  | Read-only channel to retrieve the current arming state. Possible values are `SYSTEM_ARMING`, `SYSTEM_ARMED` and `SYSTEM_DISARMED`. |
+| alarm-state                  | String               | &#9744;  | Read-only channel to retrieve the current alarm state. Possible values are `ALARM_OFF`, `PRE_ALARM`, `ALARM_ON`, `ALARM_MUTED` and `UNKNOWN`. |
+| active-configuration-profile | String               | &#9744;  | The name of the active configuration profile used for the intrusion detection system. |
+| arm-action                   | String               | &#9745;  | Arms the intrusion detection system using the given profile ID (default is "0"). |
+| disarm-action                | Switch               | &#9745;  | Disarms the intrusion detection system when an ON command is received. |
+| mute-action                  | Switch               | &#9745;  | Mutes the alarm when an ON command is received. |
 
 ## Limitations
 
